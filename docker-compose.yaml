@@ -1,0 +1,21 @@
+services:
+  auth_service:
+    container_name: auth_service_${PROJECT_NAME}
+    build:
+      context: .
+      dockerfile: docker/php/php.Dockerfile
+      args:
+        WORKDIR: ${WORKDIR}
+    ports:
+      - ${AUTH_SERVICE_PORT}:9000
+    env_file:
+      - .env.local
+    volumes:
+      - .:${WORKDIR}
+    user: ${USER_ID}:${GROUP_ID}
+    networks:
+      - sound-garden-network-dev
+
+networks:
+  sound-garden-network-dev:
+    external: true
