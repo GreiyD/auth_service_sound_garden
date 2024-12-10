@@ -5,7 +5,7 @@ namespace App\Model;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RegistrationRequest
+class RegisterRequest
 {
     #[SerializedName('name')]
     #[Assert\NotBlank(message: "Name is required")]

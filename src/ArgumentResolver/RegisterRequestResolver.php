@@ -3,7 +3,7 @@
 namespace App\ArgumentResolver;
 
 use App\Exception\ValidationException;
-use App\Model\RegistrationRequest;
+use App\Model\RegisterRequest;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RegistrationRequestResolver implements ValueResolverInterface
+class RegisterRequestResolver implements ValueResolverInterface
 {
     protected SerializerInterface $serializer;
     protected ValidatorInterface $validator;
@@ -28,14 +28,14 @@ class RegistrationRequestResolver implements ValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return $argument->getType() === RegistrationRequest::class;
+        return $argument->getType() === RegisterRequest::class;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $registrationRequest = $this->serializer->deserialize(
             $request->getContent(),
-            RegistrationRequest::class,
+            RegisterRequest::class,
             JsonEncoder::FORMAT
         );
 
@@ -43,16 +43,6 @@ class RegistrationRequestResolver implements ValueResolverInterface
         if ($violations->count() > 0) {
             throw new ValidationException($violations);
         }
-//        if (count($violations) > 0) {
-//            $errors = [];
-//            foreach ($violations as $violation) {
-//                $errors[] = [
-//                    'field' => $violation->getPropertyPath(),
-//                    'message' => $violation->getMessage(),
-//                ];
-//            }
-//            throw new BadRequestHttpException(json_encode(['errors' => $errors]));
-//        }
 
         yield $registrationRequest;
     }
