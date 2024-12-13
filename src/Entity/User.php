@@ -5,10 +5,11 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'User with this email already exists.')]
-class User
+class User implements PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,11 +25,10 @@ class User
     #[ORM\Column(type: 'string', length: 255)]
     protected string $password;
 
-    public function __construct(string $name, string $email, string $password)
+    public function __construct(string $name, string $email)
     {
         $this->name = $name;
         $this->email = $email;
-        $this->password = $password;
     }
 
     public function getId(): ?int

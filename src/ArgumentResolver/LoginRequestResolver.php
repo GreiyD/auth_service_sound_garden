@@ -3,7 +3,7 @@
 namespace App\ArgumentResolver;
 
 use App\Exception\ValidationException;
-use App\Model\RegisterRequest;
+use App\Model\LoginRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RegisterRequestResolver implements ValueResolverInterface
+class LoginRequestResolver implements ValueResolverInterface
 {
     protected SerializerInterface $serializer;
     protected ValidatorInterface $validator;
@@ -24,26 +24,26 @@ class RegisterRequestResolver implements ValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return $argument->getType() === RegisterRequest::class;
+        return $argument->getType() === LoginRequest::class;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        if($argument->getType() !== RegisterRequest::class){
+        if($argument->getType() !== LoginRequest::class){
             return [];
         }
 
-        $registrationRequest = $this->serializer->deserialize(
+        $loginRequest = $this->serializer->deserialize(
             $request->getContent(),
-            RegisterRequest::class,
+            LoginRequest::class,
             JsonEncoder::FORMAT
         );
 
-        $violations = $this->validator->validate($registrationRequest);
+        $violations = $this->validator->validate($loginRequest);
         if ($violations->count() > 0) {
             throw new ValidationException($violations);
         }
 
-        yield $registrationRequest;
+        yield $loginRequest;
     }
 }
