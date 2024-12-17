@@ -25,6 +25,8 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Service\AuthServiceInterface: '@App\Service\AuthService'
+
     App\Listener\ValidationExceptionListener:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 10 }
@@ -33,8 +35,14 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 10 }
 
+    App\Listener\JWTCreatedListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'lexik_jwt_authentication.on_jwt_created' }
+
     App\ArgumentResolver\RegisterRequestResolver:
         tags: [ 'controller.argument_value_resolver' ]
 
     App\ArgumentResolver\LoginRequestResolver:
         tags: [ 'controller.argument_value_resolver' ]
+
+    Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface: '@lexik_jwt_authentication.jwt_manager'

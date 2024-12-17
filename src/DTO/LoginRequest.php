@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Model;
+namespace App\DTO;
 
+use App\DTO\Interface\LoginRequestInterface;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class LoginRequest
+class LoginRequest implements LoginRequestInterface
 {
     #[SerializedName('email')]
     #[Assert\NotBlank(message: "Email is required")]

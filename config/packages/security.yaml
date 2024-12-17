@@ -13,6 +13,26 @@ security:
             lazy: true
             provider: users_in_memory
 
+#        login:
+#            pattern: ^/api/v\d+/login
+#            stateless: true
+#            json_login:
+#                check_path: ^/api/login_check
+#                success_handler: lexik_jwt_authentication.handler.authentication_success
+#                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+#
+#        register:
+#            pattern: ^/api/v\d+/register
+#            stateless: true
+#
+#        api:
+#            pattern: ^/api/v\d+
+#            stateless: true
+#            guard:
+#                authenticators:
+#                    - lexik_jwt_authentication.jwt_token_authenticator
+
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -21,9 +41,11 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-    access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+
+#    access_control:
+#        - { path: ^/api/v\d+/auth/login, roles: PUBLIC_ACCESS }
+#        - { path: ^/api/v\d+/auth/register, roles: PUBLIC_ACCESS }
+#        - { path: ^/api/v\d+/auth/logout, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:

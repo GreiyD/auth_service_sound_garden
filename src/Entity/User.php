@@ -6,10 +6,12 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'users')]
 #[UniqueEntity(fields: ['email'], message: 'User with this email already exists.')]
-class User implements PasswordAuthenticatedUserInterface
+class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,7 +19,7 @@ class User implements PasswordAuthenticatedUserInterface
     protected ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 100)]
-    protected string $name;
+    protected string $nickname;
 
     #[ORM\Column(type: 'string', length: 100, unique: true)]
     protected string $email;
@@ -25,10 +27,14 @@ class User implements PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     protected string $password;
 
-    public function __construct(string $name, string $email)
+    #[ORM\Column(type: 'json')]
+    protected array $roles = [];
+
+    public function __construct(string $nickname, string $email, array $roles)
     {
-        $this->name = $name;
+        $this->nickname = $nickname;
         $this->email = $email;
+        $this->roles = $roles;
     }
 
     public function getId(): ?int
@@ -36,15 +42,14 @@ class User implements PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getName(): string
+    public function getNickname(): string
     {
-        return $this->name;
+        return $this->nickname;
     }
 
-    public function setName(string $name): self
+    public function setNickname(string $nickname): void
     {
-        $this->name = $name;
-        return $this;
+        $this->nickname = $nickname;
     }
 
     public function getEmail(): string
@@ -67,5 +72,25 @@ class User implements PasswordAuthenticatedUserInterface
     {
         $this->password = $password;
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    public function eraseCredentials()
+    {
+        $this->password = null;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }

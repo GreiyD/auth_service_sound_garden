@@ -3,7 +3,7 @@
 namespace App\ArgumentResolver;
 
 use App\Exception\ValidationException;
-use App\Model\LoginRequest;
+use App\DTO\LoginRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -20,11 +20,6 @@ class LoginRequestResolver implements ValueResolverInterface
     {
         $this->serializer = $serializer;
         $this->validator = $validator;
-    }
-
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
-        return $argument->getType() === LoginRequest::class;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable

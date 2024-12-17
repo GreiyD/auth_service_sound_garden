@@ -3,7 +3,7 @@
 namespace App\ArgumentResolver;
 
 use App\Exception\ValidationException;
-use App\Model\RegisterRequest;
+use App\DTO\RegisterRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -20,11 +20,6 @@ class RegisterRequestResolver implements ValueResolverInterface
     {
         $this->serializer = $serializer;
         $this->validator = $validator;
-    }
-
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
-        return $argument->getType() === RegisterRequest::class;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
