@@ -9,23 +9,23 @@ use Symfony\Component\Validator\Constraints as Assert;
 class RegisterRequest implements RegisterRequestInterface
 {
     #[SerializedName('nickname')]
-    #[Assert\NotBlank(message: "Nickname is required")]
-    #[Assert\Length(min: 2, minMessage: "Nickname must be at least 2 characters long")]
+    #[Assert\NotBlank(message: "nickname_required")]
+    #[Assert\Length(min: 2, minMessage: "nickname_min_length")]
     protected string $nickname;
 
     #[SerializedName('email')]
-    #[Assert\NotBlank(message: "Email is required")]
-    #[Assert\Email(message: "Invalid email format")]
+    #[Assert\NotBlank(message: "email_required")]
+    #[Assert\Email(message: "invalid_email_format")]
     protected string $email;
 
     #[SerializedName('password')]
-    #[Assert\NotBlank(message: "Password is required")]
-    #[Assert\Length(min: 8, minMessage: "Password must be at least 8 characters long",)]
+    #[Assert\NotBlank(message: "password_required")]
+    #[Assert\Length(min: 8, minMessage: "password_min_length",)]
     protected string $password;
 
     #[SerializedName('confirmPassword')]
-    #[Assert\NotBlank(message: "Confirm Password is required")]
-    #[Assert\EqualTo(propertyPath: "password", message: "Passwords do not match")]
+    #[Assert\NotBlank(message: "confirm_password_required")]
+    #[Assert\EqualTo(propertyPath: "password", message: "passwords_do_not_match")]
     protected string $confirmPassword;
 
     public function __construct(string $nickname, string $email, string $password, string $confirmPassword)

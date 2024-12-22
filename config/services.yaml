@@ -31,6 +31,10 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 10 }
 
+    App\Listener\TranslationExceptionListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 11 }
+
     App\Listener\ApiExceptionListener:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 10 }

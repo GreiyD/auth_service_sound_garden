@@ -1,0 +1,11 @@
+nickname_required: "Никнейм пользователя обязателен."
+email_required: "Электронная почта обязательна."
+password_required: "Пароль обязателен."
+confirm_password_required: "Подтверждение пароля обязательно."
+
+invalid_email_format: "Это неверный формат электронной почты."
+passwords_do_not_match: "Пароли не совпадают."
+user_with_this_email_already_exists: "Пользователь с таким email уже существует."
+
+nickname_min_length: "Никнейм пользователя должен содержать минимум {{ limit }} символов."
+password_min_length: "Пароль должен содержать минимум {{ limit }} символов."

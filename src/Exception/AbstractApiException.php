@@ -5,7 +5,7 @@ namespace App\Exception;
 use RuntimeException;
 use Throwable;
 
-class ApiException extends RuntimeException
+abstract class AbstractApiException extends RuntimeException
 {
     protected int $statusCode;
 

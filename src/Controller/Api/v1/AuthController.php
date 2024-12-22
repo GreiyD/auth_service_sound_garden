@@ -8,14 +8,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AuthController extends AbstractController
 {
     protected AuthServiceInterface $userService;
+    protected TranslatorInterface $translator;
 
-    public function __construct(AuthServiceInterface $userService)
+    public function __construct(AuthServiceInterface $userService, TranslatorInterface $translator)
     {
         $this->userService = $userService;
+        $this->translator = $translator;
     }
 
     #[Route('/auth/login', name: 'login', methods: ['POST'])]
@@ -25,7 +28,7 @@ class AuthController extends AbstractController
 
         return $this->json([
             'status' => 'success',
-            'message' => 'You successfully logged in.',
+            'message' =>  $this->translator->trans('successful_login'),
             'user' => $responce,
         ]);
     }
@@ -35,7 +38,7 @@ class AuthController extends AbstractController
     {
         return $this->json([
             'status' => 'success',
-            'message' => 'Logout successful.',
+            'message' =>  $this->translator->trans('successful_logout'),
         ]);
     }
 }

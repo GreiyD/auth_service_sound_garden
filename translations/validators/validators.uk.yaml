@@ -1,0 +1,11 @@
+nickname_required: "Нікнейм обов'язковий."
+email_required: "Електронна пошта обов'язкова."
+password_required: "Пароль обов'язковий."
+confirm_password_required: "Підтвердження пароля обов'язкове."
+
+invalid_email_format: "Це неправильний формат електронної пошти."
+passwords_do_not_match: "Паролі не збігаються."
+user_with_this_email_already_exists: "Користувач з таким email вже існує."
+
+nickname_min_length: "Нікнейм має бути не менше {{ limit }} символів."
+password_min_length: "Пароль має бути не менше {{ limit }} символів."

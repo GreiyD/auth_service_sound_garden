@@ -2,10 +2,10 @@
 
 namespace App\Exception;
 
-class UserNotFoundException extends ApiException
+class UserNotFoundException extends AbstractTranslatableExceptionAbstract
 {
     public function __construct()
     {
-        parent::__construct('There is no user with such email', 404);
+        parent::__construct('users_email_not_found', 404);
     }
 }

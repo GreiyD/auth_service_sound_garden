@@ -9,12 +9,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LoginRequest implements LoginRequestInterface
 {
     #[SerializedName('email')]
-    #[Assert\NotBlank(message: "Email is required")]
-    #[Assert\Email(message: "Invalid email format")]
+    #[Assert\NotBlank(message: "email_required")]
+    #[Assert\Email(message: "invalid_email_format")]
     protected string $email;
 
     #[SerializedName('password')]
-    #[Assert\NotBlank(message: "Password is required")]
+    #[Assert\NotBlank(message: "password_required")]
     protected string $password;
 
     public function __construct(string $email, string $password)

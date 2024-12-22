@@ -1,0 +1,11 @@
+nickname_required: "Nickname is required."
+email_required: "Email is required."
+password_required: "Password is required."
+confirm_password_required: "Confirm password is required."
+
+invalid_email_format: "This is not a valid email address."
+passwords_do_not_match: "Passwords do not match."
+user_with_this_email_already_exists: "User with this email already exists."
+
+nickname_min_length: "Nickname must be at least {{ limit }} characters long."
+password_min_length: "Password must be at least {{ limit }} characters long."

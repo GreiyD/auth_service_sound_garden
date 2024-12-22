@@ -2,7 +2,7 @@
 
 namespace App\Listener;
 
-use App\Exception\ApiException;
+use App\Exception\AbstractApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ApiExceptionListener
 {
     protected SerializerInterface $serializer;
+
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
@@ -18,7 +19,7 @@ class ApiExceptionListener
     public function __invoke(ExceptionEvent $event): void
     {
         $throwable = $event->getThrowable();
-        if(!$throwable instanceof ApiException){
+        if(!$throwable instanceof AbstractApiException){
             return;
         }
 
