@@ -27,6 +27,10 @@ services:
 
     App\Service\AuthServiceInterface: '@App\Service\AuthService'
 
+    App\Listener\SetLocaleListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', priority: 20}
+
     App\Listener\ValidationExceptionListener:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 10 }
